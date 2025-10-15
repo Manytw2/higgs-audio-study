@@ -29,7 +29,7 @@ export class HiggsAudioProvider implements vscode.TreeDataProvider<HiggsAudioIte
             return Promise.resolve(this.items);
         }
 
-        switch (element.command) {
+        switch (element.commandId) {
             case 'audioHistory':
                 return Promise.resolve([
                     new HiggsAudioItem('📁 今天的对话', 'todayHistory', vscode.TreeItemCollapsibleState.None),
@@ -51,14 +51,14 @@ export class HiggsAudioProvider implements vscode.TreeDataProvider<HiggsAudioIte
 export class HiggsAudioItem extends vscode.TreeItem {
     constructor(
         public readonly label: string,
-        public readonly command: string,
+        public readonly commandId: string,
         public readonly collapsibleState: vscode.TreeItemCollapsibleState,
         public readonly iconPath?: vscode.ThemeIcon
     ) {
         super(label, collapsibleState);
         this.tooltip = `${this.label}`;
         this.command = {
-            command: `higgsAudio.${command}`,
+            command: `higgsAudio.${commandId}`,
             title: this.label,
             arguments: [this]
         };

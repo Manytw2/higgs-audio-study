@@ -136,14 +136,18 @@ export class PythonServer {
 
     async cloneVoice(request: VoiceCloneRequest): Promise<VoiceCloneResponse> {
         try {
+            // 在Node.js环境中，我们需要使用不同的方式处理文件上传
+            const fs = require('fs');
+            const FormData = require('form-data');
+            
             const formData = new FormData();
-            formData.append('audioFile', request.audioFile);
+            formData.append('audioFile', fs.createReadStream(request.audioFile));
             formData.append('text', request.text);
             formData.append('name', request.name);
 
             const response = await this.axiosInstance.post('/clone-voice', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    ...formData.getHeaders()
                 }
             });
             return response.data;

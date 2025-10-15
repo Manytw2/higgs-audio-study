@@ -15,9 +15,23 @@
             }
         },
         {
-            "label": "编译",
+            "label": "npm: compile",
             "type": "npm",
             "script": "compile",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "npm: compile-simple",
+            "type": "shell",
+            "command": "npx",
+            "args": ["tsc", "-p", "./", "--outDir", "./out"],
             "group": "build",
             "presentation": {
                 "echo": true,
