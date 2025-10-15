@@ -15,9 +15,9 @@
             }
         },
         {
-            "label": "npm: compile",
+            "label": "npm: build",
             "type": "npm",
-            "script": "compile",
+            "script": "build",
             "group": "build",
             "presentation": {
                 "echo": true,
