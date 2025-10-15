@@ -106,17 +106,15 @@
 
 ```
 higgs-audio-extension/
-├── src/
+├── src/                          # 源代码目录
 │   ├── extension.ts              # 主入口文件
-│   ├── providers/
-│   │   └── higgsAudioProvider.ts # 树形视图提供者
-│   ├── python/
-│   │   ├── pythonServer.ts       # Python服务器管理
-│   │   └── higgs_audio_server.py # Python HTTP服务器
-│   └── webview/
-│       └── chatWebviewProvider.ts # 聊天界面提供者
-├── media/                        # 资源文件
-├── package.json                  # 插件配置
+│   └── providers/                # 视图提供者
+│       └── higgsAudioProvider.ts # 侧边栏树形视图提供者
+├── out/                          # 编译输出目录
+├── package.json                  # 插件配置和依赖
+├── tsconfig.json                 # TypeScript配置
+├── launch.json                   # VSCode调试配置
+├── tasks.json                    # VSCode任务配置
 └── README.md                     # 说明文档
 ```
 
@@ -124,19 +122,19 @@ higgs-audio-extension/
 
 ### 本地开发
 
-1. **启动开发模式**
+1. **构建插件**
    ```bash
-   npm run watch
+   npm run build
    ```
 
-2. **调试插件**
-   - 按`F5`启动调试会话
+2. **启动调试**
+   - 在VSCode中按`F5`启动调试会话
+   - 选择"启动扩展"配置
    - 在新窗口中测试插件功能
 
-3. **测试Python服务器**
+3. **开发模式**
    ```bash
-   cd src/python
-   python higgs_audio_server.py --help
+   npm run watch  # 监听文件变化并自动编译
    ```
 
 ### 添加新功能
@@ -145,46 +143,48 @@ higgs-audio-extension/
    - 在`package.json`的`contributes.commands`中添加命令
    - 在`extension.ts`中注册命令处理器
 
-2. **扩展Webview界面**
-   - 修改`chatWebviewProvider.ts`中的HTML模板
-   - 添加新的消息处理逻辑
+2. **扩展视图提供者**
+   - 修改`providers/higgsAudioProvider.ts`中的树形视图
+   - 添加新的视图项和命令
 
-3. **扩展Python API**
-   - 在`higgs_audio_server.py`中添加新的API端点
-   - 在`pythonServer.ts`中添加对应的客户端方法
+3. **扩展Webview界面**
+   - 在`extension.ts`中创建新的Webview面板
+   - 添加HTML模板和交互逻辑
 
 ## 🐛 故障排除
 
 ### 常见问题
 
-1. **Python服务器启动失败**
-   - 检查Python环境是否正确
-   - 确认Higgs Audio依赖已安装
+1. **插件无法启动**
+   - 检查VSCode版本是否兼容（需要1.74.0+）
+   - 确认所有依赖已正确安装
    - 查看VSCode开发者控制台的错误信息
 
-2. **模型加载失败**
-   - 检查模型路径配置
-   - 确认网络连接正常（首次下载模型）
-   - 检查磁盘空间是否充足
+2. **构建失败**
+   - 运行`npm run clean && npm run build`
+   - 检查TypeScript编译错误
+   - 确认所有源文件语法正确
 
-3. **音频生成失败**
-   - 检查输入文本是否为空
-   - 确认Python服务器正在运行
-   - 查看服务器日志获取详细错误信息
+3. **F5调试没有反应**
+   - 确保在VSCode中打开了正确的项目文件夹
+   - 检查`launch.json`配置是否正确
+   - 确认`out/extension.js`文件存在
 
 ### 日志查看
 
 - **VSCode日志**: 打开开发者工具(`Ctrl+Shift+I`)
-- **Python日志**: 查看VSCode输出面板的"Higgs Audio"频道
+- **插件日志**: 查看调试控制台输出
+- **构建日志**: 查看终端输出
 
 ## 📝 更新日志
 
 ### v1.0.0
 - 初始版本发布
-- 支持基本的文本转语音功能
-- 支持语音克隆
-- 支持音频播放和下载
-- 支持对话历史记录
+- 基本的VSCode插件框架
+- 支持命令注册和执行
+- 支持侧边栏树形视图
+- 支持简单的Webview界面
+- 标准的npm构建流程
 
 ## 🤝 贡献指南
 
