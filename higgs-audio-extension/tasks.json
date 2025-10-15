@@ -1,0 +1,92 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "watch",
+            "problemMatcher": "$tsc-watch",
+            "isBackground": true,
+            "presentation": {
+                "reveal": "never"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "编译",
+            "type": "npm",
+            "script": "compile",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "打包插件",
+            "type": "shell",
+            "command": "vsce",
+            "args": ["package"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "启动Python服务器",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "${workspaceFolder}/src/python/higgs_audio_server.py",
+                "--port", "8765"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new"
+            },
+            "options": {
+                "env": {
+                    "PYTHONPATH": "${workspaceFolder}/../higgs-audio-study:${workspaceFolder}/src/python"
+                }
+            }
+        },
+        {
+            "label": "测试API",
+            "type": "shell",
+            "command": "python",
+            "args": ["${workspaceFolder}/test/test-api.py"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "dependsOn": "启动Python服务器"
+        },
+        {
+            "label": "安装依赖",
+            "type": "shell",
+            "command": "python",
+            "args": ["${workspaceFolder}/install.py"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
+    ]
+}

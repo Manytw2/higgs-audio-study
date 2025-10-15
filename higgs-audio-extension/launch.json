@@ -1,0 +1,42 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "启动扩展",
+            "type": "extensionHost",
+            "request": "launch",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js"
+            ],
+            "preLaunchTask": "${workspaceFolder}/npm: watch"
+        },
+        {
+            "name": "启动Python服务器",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/python/higgs_audio_server.py",
+            "args": [
+                "--port", "8765",
+                "--model-path", "bosonai/higgs-audio-v2-generation-3B-base",
+                "--audio-tokenizer-path", "bosonai/higgs-audio-v2-tokenizer",
+                "--device", "auto"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/../higgs-audio-study:${workspaceFolder}/src/python"
+            }
+        },
+        {
+            "name": "测试API",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/test-api.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
