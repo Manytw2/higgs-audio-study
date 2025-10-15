@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "启动扩展",
+            "name": "启动简化扩展",
             "type": "extensionHost",
             "request": "launch",
             "args": [

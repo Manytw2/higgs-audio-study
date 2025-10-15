@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "启动扩展",
+            "name": "测试启动扩展",
             "type": "extensionHost",
             "request": "launch",
             "args": [

@@ -1,0 +1,47 @@
+{
+  "name": "higgs-audio-vscode-extension",
+  "displayName": "Higgs Audio",
+  "description": "Higgs Audio VSCode插件",
+  "version": "1.0.0",
+  "publisher": "higgs-audio",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:higgsAudio.openChat",
+    "onCommand:higgsAudio.generateAudio",
+    "onCommand:higgsAudio.uploadVoice"
+  ],
+  "main": "./out/extension-simple.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "higgsAudio.openChat",
+        "title": "打开Higgs Audio聊天",
+        "category": "Higgs Audio"
+      },
+      {
+        "command": "higgsAudio.generateAudio",
+        "title": "生成音频",
+        "category": "Higgs Audio"
+      },
+      {
+        "command": "higgsAudio.uploadVoice",
+        "title": "上传语音样本",
+        "category": "Higgs Audio"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "build": "tsc -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^4.9.4"
+  }
+}
